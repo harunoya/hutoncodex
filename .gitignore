@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.generated/
+design-evidence/
+output/
+mobile-audit-*/
+perf-audit-*/
+ui-audit-*/
+tailscale-download/
+src-tauri/target/
+/target/
+src-tauri/gen/
+*.log
+.DS_Store
