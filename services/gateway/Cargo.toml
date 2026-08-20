@@ -1,5 +1,5 @@
 [package]
-name = "codex-remote-gateway"
+name = "hutoncodex-gateway"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

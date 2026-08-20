@@ -3,11 +3,11 @@
 Host Agentは開発端末で動作し、Gatewayへ外向き接続してローカルApp Serverを管理する。
 
 ```powershell
-cargo run -p codex-remote-agent -- doctor --json
-cargo run -p codex-remote-agent -- app-server probe
-cargo run -p codex-remote-agent -- workspaces list --workspace C:\src\project
-$env:CODEX_REMOTE_HOST_TOKEN="development-token-at-least-32-characters"
-cargo run -p codex-remote-agent -- connect `
+cargo run -p hutoncodex-agent -- doctor --json
+cargo run -p hutoncodex-agent -- app-server probe
+cargo run -p hutoncodex-agent -- workspaces list --workspace C:\src\project
+$env:HUTONCODEX_HOST_TOKEN="development-token-at-least-32-characters"
+cargo run -p hutoncodex-agent -- connect `
   --gateway ws://127.0.0.1:8787 `
   --host-id 11111111-1111-4111-8111-111111111111 `
   --display-name workstation `

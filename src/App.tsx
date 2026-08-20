@@ -215,7 +215,7 @@ const PREVIEW_CONNECTIONS: ManagedConnection[] = [
     label: "remote-workspace",
     mode: "manual",
     state: "connected",
-    serverInfo: { userAgent: "codex-remote-preview", codexHome: "~/.codex", platformFamily: "windows", platformOs: "Windows" },
+    serverInfo: { userAgent: "hutoncodex-preview", codexHome: "~/.codex", platformFamily: "windows", platformOs: "Windows" },
     createdAt: 4,
   },
   {
@@ -224,7 +224,7 @@ const PREVIEW_CONNECTIONS: ManagedConnection[] = [
     label: "devbox-tokyo",
     mode: "qr",
     state: "connected",
-    serverInfo: { userAgent: "codex-remote-preview", codexHome: "/home/codex/.codex", platformFamily: "unix", platformOs: "Linux" },
+    serverInfo: { userAgent: "hutoncodex-preview", codexHome: "/home/codex/.codex", platformFamily: "unix", platformOs: "Linux" },
     createdAt: 3,
   },
   {
@@ -234,7 +234,7 @@ const PREVIEW_CONNECTIONS: ManagedConnection[] = [
     mode: "advanced",
     state: "connected",
     endpoint: "wss://laptop.example.test",
-    serverInfo: { userAgent: "codex-remote-preview", codexHome: "~/.codex", platformFamily: "macos", platformOs: "macOS" },
+    serverInfo: { userAgent: "hutoncodex-preview", codexHome: "~/.codex", platformFamily: "macos", platformOs: "macOS" },
     createdAt: 2,
   },
   ...Array.from({ length: 7 }, (_, index): ManagedConnection => ({
@@ -247,7 +247,7 @@ const PREVIEW_CONNECTIONS: ManagedConnection[] = [
     state: "connected",
     endpoint: index % 2 === 0 ? undefined : `wss://remote-${index + 2}.example.test`,
     serverInfo: {
-      userAgent: "codex-remote-preview",
+      userAgent: "hutoncodex-preview",
       codexHome: "~/.codex",
       platformFamily: "unix",
       platformOs: index % 2 === 0 ? "Android" : "Linux",
@@ -299,7 +299,7 @@ export default function App() {
   const [qrScanning, setQrScanning] = useState(false);
   const [qrStarting, setQrStarting] = useState(false);
   const [connectionLabel, setConnectionLabel] = useState(DESIGN_PREVIEW ? "remote-workspace" : "");
-  const [serverInfo, setServerInfo] = useState<InitializeResponse | null>(DESIGN_PREVIEW ? { userAgent: "codex-remote-preview", codexHome: "~/.codex", platformFamily: "windows", platformOs: "Windows" } : null);
+  const [serverInfo, setServerInfo] = useState<InitializeResponse | null>(DESIGN_PREVIEW ? { userAgent: "hutoncodex-preview", codexHome: "~/.codex", platformFamily: "windows", platformOs: "Windows" } : null);
   const [threads, setThreads] = useState<CodexThread[]>(DESIGN_PREVIEW ? PREVIEW_THREADS : []);
   const [activeThread, setActiveThread] = useState<CodexThread | null>(DESIGN_PREVIEW ? PREVIEW_ACTIVE_THREAD : null);
   const [models, setModels] = useState<CodexModel[]>(DESIGN_PREVIEW ? PREVIEW_MODELS : []);

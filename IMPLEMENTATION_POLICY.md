@@ -1,10 +1,10 @@
-# Codex Remote 実装方針
+# hutoncodex 実装方針
 
 更新日: 2026-08-20
 
 ## 2026-08-20の上位決定
 
-Codex Remoteの主製品を、**Browser → Rust Gateway → outbound-only Rust Host Agent → loopback stdio Codex App Server**へ段階移行する。
+hutoncodexの主製品を、**Browser → Rust Gateway → outbound-only Rust Host Agent → loopback stdio Codex App Server**へ段階移行する。
 
 - BrowserはGatewayのHttpOnlyセッションだけを使用し、Codex token、Host token、端末鍵、enrollmentを受け取らない。
 - Host Agentは利用者が登録した絶対workspaceだけを公開し、GatewayからHostへの着信ポートを要求しない。
@@ -19,7 +19,7 @@ Codex Remoteの主製品を、**Browser → Rust Gateway → outbound-only Rust 
 
 ## 旧Tauri版の決定
 
-Codex Remote は、**公式 Remote Control Pair を第一の接続方式とする Tauri クライアント**として開発する。Pair コードまたは QR Pair により、OpenAI が提供する enrollment と Relay を経由して接続する。
+hutoncodex は、**公式 Remote Control Pair を第一の接続方式とする Tauri クライアント**として開発する。Pair コードまたは QR Pair により、OpenAI が提供する enrollment と Relay を経由して接続する。
 
 上級者向けの直接 WebSocket 接続は、ローカル開発、SSH ポートフォワード、または利用者が管理する TLS 終端済み App Server のためだけに維持する。通常導線、Android の代替導線、または Pair の失敗時フォールバックには使用しない。
 

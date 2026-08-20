@@ -181,8 +181,8 @@ export class AppServerClient {
     try {
       const initialized = await this.request<InitializeResponse>("initialize", {
         clientInfo: {
-          name: "codex_remote_tauri",
-          title: "Codex Remote",
+          name: "hutoncodex_tauri",
+          title: "hutoncodex",
           version: "0.1.0",
         },
         capabilities: {

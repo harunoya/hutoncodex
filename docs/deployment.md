@@ -3,16 +3,16 @@
 ## 開発用Gateway
 
 ```powershell
-$env:CODEX_REMOTE_ADMIN_PASSWORD="change-this-development-password"
-$env:CODEX_REMOTE_HOST_TOKEN="change-this-development-host-token-32chars"
-cargo run -p codex-remote-gateway
+$env:HUTONCODEX_ADMIN_PASSWORD="change-this-development-password"
+$env:HUTONCODEX_HOST_TOKEN="change-this-development-host-token-32chars"
+cargo run -p hutoncodex-gateway
 ```
 
 別terminalでHost Agentを起動する。
 
 ```powershell
-$env:CODEX_REMOTE_HOST_TOKEN="change-this-development-host-token-32chars"
-cargo run -p codex-remote-agent -- connect `
+$env:HUTONCODEX_HOST_TOKEN="change-this-development-host-token-32chars"
+cargo run -p hutoncodex-agent -- connect `
   --gateway ws://127.0.0.1:8787 `
   --host-id 11111111-1111-4111-8111-111111111111 `
   --workspace C:\absolute\workspace
@@ -21,7 +21,7 @@ cargo run -p codex-remote-agent -- connect `
 ## 公開前の必須条件
 
 - HTTPS reverse proxyと`--secure-cookies`
-- `CODEX_REMOTE_PUBLIC_ORIGIN=https://exact-origin.example`
+- `HUTONCODEX_PUBLIC_ORIGIN=https://exact-origin.example`
 - one-time Host enrollmentとtoken rotation/revocation
 - 永続User/Host/Workspace DBとmigration
 - request/turn/user単位rate limit、監査、secret redaction

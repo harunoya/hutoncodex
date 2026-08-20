@@ -1,6 +1,8 @@
-# Codex Remote
+# hutoncodex
 
-Codex Remoteは、別端末のWebブラウザからHost Agentを経由し、開発端末上の`codex app-server`を操作するためのクライアントです。
+hutoncodexは、別端末のWebブラウザからHost Agentを経由し、開発端末上の`codex app-server`を操作するためのクライアントです。
+
+リポジトリは[harunoya/hutoncodex](https://github.com/harunoya/hutoncodex)で公開しています。
 
 現在は、TauriフロントエンドからWeb Gateway構成へ移行中です。
 既存のTauri 2 + React実装は、Web版で必要な機能が揃うまでリポジトリ内に残しています。
@@ -33,22 +35,21 @@ Codexの資格情報ではなく、Gateway管理者が設定したパスワー�
 
 ![Gatewayへのログイン](docs/screenshots/web-login.png)
 
-### Host Agentの検出
+### Host Agentとタスク一覧
 
-ログイン後、接続済みのHost Agentと、そのHostで検出したLuna Max capabilityを一覧で確認できます。
-この画面はHostを選択する前の状態です。
+ログイン後、接続済みのHost Agentを選択すると、App Serverから取得したタスクがWorkspaceごとに表示されます。
 
-![Host Agentの検出](docs/screenshots/web-host-connected.png)
+![Host Agentとタスク一覧](docs/screenshots/web-host-connected.png)
 
 ### 既存タスクの表示
 
-Hostを選択し、ローカルApp Serverから既存のテストタスクを取得した状態です。
-既存タスク名を写さないため、メインペインだけを撮影しています。
+Hostを選択し、ローカルApp Serverから既存のテストタスクを開いた状態です。
+モデル、推論レベル、入力欄は、App Serverが提供する機能だけを表示します。
 
 ![既存タスクの表示](docs/screenshots/web-task-view.png)
 
-これらの画像は、ローカルでGateway、Host Agent、Codex App Serverを実際に起動して取得しました。
-今回の確認では既存タスクの表示までを実行し、新しいターンは開始していません。
+これらの画像は、ローカルでGateway、Host Agent、Codex App Serverを実際に起動して取得したものです。
+撮影では既存タスクの表示までを確認し、新しいターンは開始していません。
 
 ## 構成
 
@@ -85,17 +86,17 @@ Gateway用パスワードは12文字以上、Host tokenは32文字以上にし�
 次の値は例です。本番用の値をリポジトリへ保存しないでください。
 
 ```powershell
-$env:CODEX_REMOTE_ADMIN_PASSWORD="replace-with-a-local-password"
-$env:CODEX_REMOTE_HOST_TOKEN="replace-with-a-random-host-token-32chars"
-cargo run -p codex-remote-gateway
+$env:HUTONCODEX_ADMIN_PASSWORD="replace-with-a-local-password"
+$env:HUTONCODEX_HOST_TOKEN="replace-with-a-random-host-token-32chars"
+cargo run -p hutoncodex-gateway
 ```
 
 別のPowerShellでHost Agentを起動します。
 `--workspace`には、ブラウザから操作を許可するディレクトリの絶対パスを指定します。
 
 ```powershell
-$env:CODEX_REMOTE_HOST_TOKEN="replace-with-a-random-host-token-32chars"
-cargo run -p codex-remote-agent -- connect `
+$env:HUTONCODEX_HOST_TOKEN="replace-with-a-random-host-token-32chars"
+cargo run -p hutoncodex-agent -- connect `
   --gateway ws://127.0.0.1:8787 `
   --host-id 11111111-1111-4111-8111-111111111111 `
   --display-name local-workstation `
@@ -107,8 +108,8 @@ cargo run -p codex-remote-agent -- connect `
 Host Agent単体の確認には次のコマンドを使えます。
 
 ```powershell
-cargo run -p codex-remote-agent -- doctor
-cargo run -p codex-remote-agent -- app-server probe
+cargo run -p hutoncodex-agent -- doctor
+cargo run -p hutoncodex-agent -- app-server probe
 ```
 
 詳しい開発用手順は[docs/deployment.md](docs/deployment.md)を参照してください。
@@ -140,7 +141,7 @@ npm run protocol:generate
 公開前には、少なくとも次の実装と運用が必要です。
 
 - HTTPS終端と`--secure-cookies`
-- `CODEX_REMOTE_PUBLIC_ORIGIN`の固定
+- `HUTONCODEX_PUBLIC_ORIGIN`の固定
 - Host enrollment、token rotation、失効処理
 - 永続User、Host、Workspaceデータベースとmigration
 - request、turn、user単位のrate limit

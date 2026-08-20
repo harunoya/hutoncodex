@@ -275,52 +275,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c8d4a3bb8b1e0c1050499d1815f5ab16d04f0959b233085fb31653fbfc9d98f9"
 
 [[package]]
-name = "codex-remote-agent"
-version = "0.2.0"
-dependencies = [
- "anyhow",
- "app-server-client",
- "clap",
- "futures-util",
- "http",
- "remote-protocol",
- "serde",
- "serde_json",
- "tokio",
- "tokio-tungstenite 0.30.0",
- "tracing",
- "tracing-subscriber",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "codex-remote-gateway"
-version = "0.2.0"
-dependencies = [
- "anyhow",
- "argon2",
- "axum",
- "base64",
- "clap",
- "futures-util",
- "http",
- "rand 0.8.7",
- "remote-protocol",
- "serde",
- "serde_json",
- "session-core",
- "sha2",
- "subtle",
- "tokio",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "url",
- "uuid",
-]
-
-[[package]]
 name = "colorchoice"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -602,6 +556,52 @@ name = "httpdate"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df3b46402a9d5adb4c86a0cf463f42e19994e3ee891101b1841f30a545cb49a9"
+
+[[package]]
+name = "hutoncodex-agent"
+version = "0.2.0"
+dependencies = [
+ "anyhow",
+ "app-server-client",
+ "clap",
+ "futures-util",
+ "http",
+ "remote-protocol",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-tungstenite 0.30.0",
+ "tracing",
+ "tracing-subscriber",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "hutoncodex-gateway"
+version = "0.2.0"
+dependencies = [
+ "anyhow",
+ "argon2",
+ "axum",
+ "base64",
+ "clap",
+ "futures-util",
+ "http",
+ "rand 0.8.7",
+ "remote-protocol",
+ "serde",
+ "serde_json",
+ "session-core",
+ "sha2",
+ "subtle",
+ "tokio",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "url",
+ "uuid",
+]
 
 [[package]]
 name = "hybrid-array"

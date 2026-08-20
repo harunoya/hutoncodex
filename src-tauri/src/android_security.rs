@@ -66,7 +66,7 @@ pub fn init() -> TauriPlugin<Wry> {
     Builder::new("android-security")
         .setup(|app, api| {
             let handle =
-                api.register_android_plugin("com.codexremote.desktop", "AndroidSecurityPlugin")?;
+                api.register_android_plugin("com.harunoya.hutoncodex", "AndroidSecurityPlugin")?;
             app.manage(AndroidSecurity(handle));
             Ok(())
         })

@@ -1,5 +1,5 @@
 [package]
-name = "codex-remote-agent"
+name = "hutoncodex-agent"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

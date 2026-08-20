@@ -16,7 +16,7 @@ use url::Url;
 use uuid::Uuid;
 
 #[derive(Parser, Debug)]
-#[command(name = "codex-remote-agent", about = "Codex Remote Host Agent")]
+#[command(name = "hutoncodex-agent", about = "hutoncodex Host Agent")]
 struct Cli {
     #[arg(long, global = true)]
     json: bool,
@@ -28,9 +28,9 @@ struct Cli {
 enum Command {
     Doctor,
     Connect {
-        #[arg(long, env = "CODEX_REMOTE_GATEWAY")]
+        #[arg(long, env = "HUTONCODEX_GATEWAY")]
         gateway: Url,
-        #[arg(long, env = "CODEX_REMOTE_HOST_ID")]
+        #[arg(long, env = "HUTONCODEX_HOST_ID")]
         host_id: Uuid,
         #[arg(long, default_value = "Codex Host")]
         display_name: String,
@@ -76,7 +76,7 @@ async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
         .with_env_filter(
             tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| "codex_remote_agent=info".into()),
+                .unwrap_or_else(|_| "hutoncodex_agent=info".into()),
         )
         .with_writer(std::io::stderr)
         .init();
@@ -107,9 +107,9 @@ async fn doctor(json_output: bool) -> anyhow::Result<()> {
         .is_ok_and(|output| output.status.success());
     let report = DoctorReport {
         codex_found,
-        host_token_available: std::env::var("CODEX_REMOTE_HOST_TOKEN")
+        host_token_available: std::env::var("HUTONCODEX_HOST_TOKEN")
             .is_ok_and(|value| value.len() >= 32),
-        gateway_configured: std::env::var("CODEX_REMOTE_GATEWAY").is_ok(),
+        gateway_configured: std::env::var("HUTONCODEX_GATEWAY").is_ok(),
         protocol_version: GATEWAY_PROTOCOL_VERSION,
     };
     if json_output {
@@ -179,9 +179,9 @@ async fn connect(
     let allowed_workspaces = canonical_workspaces(&workspaces)?;
     validate_gateway_url(&gateway)?;
     let host_token =
-        std::env::var("CODEX_REMOTE_HOST_TOKEN").context("CODEX_REMOTE_HOST_TOKEN is required")?;
+        std::env::var("HUTONCODEX_HOST_TOKEN").context("HUTONCODEX_HOST_TOKEN is required")?;
     if host_token.len() < 32 {
-        bail!("CODEX_REMOTE_HOST_TOKEN must contain at least 32 characters");
+        bail!("HUTONCODEX_HOST_TOKEN must contain at least 32 characters");
     }
     gateway.set_path(&format!("/api/v1/agent/connect/{host_id}"));
     gateway.set_query(Some(&format!(

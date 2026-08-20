@@ -668,8 +668,8 @@ where
             "initialize",
             json!({
                 "clientInfo": {
-                    "name": "codex_remote_auth_broker",
-                    "title": "Codex Remote Auth Broker",
+                    "name": "hutoncodex_auth_broker",
+                    "title": "hutoncodex Auth Broker",
                     "version": env!("CARGO_PKG_VERSION")
                 },
                 "capabilities": { "experimentalApi": true }

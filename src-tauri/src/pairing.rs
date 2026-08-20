@@ -425,7 +425,7 @@ async fn authorize_client(
 ) -> Result<(Enrollment, RemoteToken), String> {
     let path = enrollment_path(app)?;
     if let Some(enrollment) = read_enrollment(&path, &auth.account_user_id) {
-        if PlatformDeviceIdentity::sign(app, &enrollment.key_container, b"codex-remote-key-check")
+        if PlatformDeviceIdentity::sign(app, &enrollment.key_container, b"hutoncodex-key-check")
             .is_ok()
         {
             match refresh_enrollment(app, client, auth, &enrollment).await {
@@ -792,7 +792,7 @@ async fn wait_for_oauth_callback(
                     write_oauth_response(
                         &mut stream,
                         "200 OK",
-                        "Codex Remoteの端末登録が完了しました。このタブを閉じてアプリに戻ってください。",
+                        "hutoncodexの端末登録が完了しました。このタブを閉じてアプリに戻ってください。",
                     )
                     .await;
                     return Ok(code);
@@ -801,7 +801,7 @@ async fn wait_for_oauth_callback(
             write_oauth_response(
                 &mut stream,
                 "400 Bad Request",
-                "Codex Remoteの端末登録を完了できませんでした。正しい認証ページから再試行してください。",
+                "hutoncodexの端末登録を完了できませんでした。正しい認証ページから再試行してください。",
             )
             .await;
         }

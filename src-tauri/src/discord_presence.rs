@@ -331,12 +331,12 @@ fn run_worker(
 
 fn render_presence(update: &PresenceUpdate, settings: &PresenceSettings) -> RenderedPresence {
     let (details, state) = match update.kind {
-        PresenceKind::Disconnected => ("Codex Remote", "接続待ち"),
+        PresenceKind::Disconnected => ("hutoncodex", "接続待ち"),
         PresenceKind::ConnectingPair => ("Codexへ接続中", "Pair接続中"),
         PresenceKind::ConnectingQr => ("Codexへ接続中", "QR Pair接続中"),
         PresenceKind::ConnectingAppServer => ("Codexへ接続中", "App Serverへ接続中"),
         PresenceKind::ConnectedIdle => (
-            "Codex Remote",
+            "hutoncodex",
             if update.has_selected_task {
                 "タスクを選択中"
             } else {
@@ -353,10 +353,10 @@ fn render_presence(update: &PresenceUpdate, settings: &PresenceSettings) -> Rend
         ),
         PresenceKind::WaitingApproval => ("Codexが操作を待っています", "承認待ち"),
         PresenceKind::WaitingInput => ("Codexが操作を待っています", "入力待ち"),
-        PresenceKind::ConnectionError => ("Codex Remote", "接続エラー"),
+        PresenceKind::ConnectionError => ("hutoncodex", "接続エラー"),
     };
     RenderedPresence {
-        details: sanitize_field(details, "Codex Remote"),
+        details: sanitize_field(details, "hutoncodex"),
         state: sanitize_field(state, "Codexで作業中"),
     }
 }
@@ -388,9 +388,9 @@ fn reconnect_backoff(attempt: u32) -> Duration {
 }
 
 fn configured_application_id() -> Option<String> {
-    std::env::var("CODEX_REMOTE_DISCORD_APP_ID")
+    std::env::var("HUTONCODEX_DISCORD_APP_ID")
         .ok()
-        .or_else(|| option_env!("CODEX_REMOTE_DISCORD_APP_ID").map(ToString::to_string))
+        .or_else(|| option_env!("HUTONCODEX_DISCORD_APP_ID").map(ToString::to_string))
         .map(|value| value.trim().to_string())
         .filter(|value| {
             (17..=20).contains(&value.len())
@@ -532,7 +532,7 @@ mod tests {
         assert_eq!(
             render_presence(&update(1, PresenceKind::Disconnected, None), &settings),
             RenderedPresence {
-                details: "Codex Remote".to_string(),
+                details: "hutoncodex".to_string(),
                 state: "接続待ち".to_string()
             }
         );

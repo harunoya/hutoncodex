@@ -1,12 +1,12 @@
 [package]
-name = "codex-remote"
+name = "hutoncodex"
 version = "0.1.0"
 description = "A Tauri client for Codex App Server"
-authors = ["Codex Remote contributors"]
+authors = ["hutoncodex contributors"]
 edition = "2021"
 
 [lib]
-name = "codex_remote_lib"
+name = "hutoncodex_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

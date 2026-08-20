@@ -96,7 +96,7 @@ impl Default for AppState {
 
 fn build_http_client() -> Client {
     Client::builder()
-        .user_agent("Codex Remote/0.1.0")
+        .user_agent("hutoncodex/0.1.0")
         .connect_timeout(Duration::from_secs(10))
         .timeout(Duration::from_secs(30))
         .pool_idle_timeout(Duration::from_secs(90))
@@ -1066,7 +1066,7 @@ pub fn run() {
             discord_presence_set_settings
         ])
         .build(tauri::generate_context!())
-        .expect("failed to run Codex Remote");
+        .expect("failed to run hutoncodex");
     app.run(|app, event| {
         if matches!(event, tauri::RunEvent::Exit) {
             app.state::<discord_presence::DiscordPresenceService>()

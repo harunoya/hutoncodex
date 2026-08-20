@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Codex Remote",
+  "productName": "hutoncodex",
   "version": "0.1.0",
-  "identifier": "com.codexremote.desktop",
+  "identifier": "com.harunoya.hutoncodex",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "Codex Remote",
+        "title": "hutoncodex",
         "width": 1280,
         "height": 820,
         "minWidth": 360,
@@ -37,6 +37,6 @@
       "icons/icon.ico"
     ],
     "shortDescription": "Remote client for Codex App Server",
-    "longDescription": "A native Tauri desktop client for connecting to Codex Remote App Server with Pair codes, QR Pair, or advanced authenticated WebSockets."
+    "longDescription": "A native Tauri desktop client for connecting to Codex App Server through hutoncodex with Pair codes, QR Pair, or advanced authenticated WebSockets."
   }
 }

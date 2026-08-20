@@ -83,8 +83,8 @@ impl AppServerProcess {
                 "initialize",
                 json!({
                     "clientInfo": {
-                        "name": "codex_remote_host_agent",
-                        "title": "Codex Remote Host Agent",
+                        "name": "hutoncodex_host_agent",
+                        "title": "hutoncodex Host Agent",
                         "version": env!("CARGO_PKG_VERSION")
                     },
                     "capabilities": {

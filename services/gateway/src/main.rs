@@ -33,23 +33,23 @@ use tower_http::{
 use tracing::{info, warn};
 use uuid::Uuid;
 
-const SESSION_COOKIE: &str = "codex_remote_session";
+const SESSION_COOKIE: &str = "hutoncodex_session";
 const MAX_API_BODY_BYTES: usize = 1024 * 1024;
 const MAX_AGENT_FRAME_BYTES: usize = 32 * 1024 * 1024;
 const SESSION_TTL: Duration = Duration::from_secs(12 * 60 * 60);
 const WS_TICKET_TTL: Duration = Duration::from_secs(60);
-const WS_PROTOCOL: &str = "codex-remote-v1";
+const WS_PROTOCOL: &str = "hutoncodex-v1";
 
 #[derive(Parser, Debug)]
-#[command(name = "codex-remote-gateway")]
+#[command(name = "hutoncodex-gateway")]
 struct Args {
-    #[arg(long, env = "CODEX_REMOTE_BIND", default_value = "127.0.0.1:8787")]
+    #[arg(long, env = "HUTONCODEX_BIND", default_value = "127.0.0.1:8787")]
     bind: SocketAddr,
-    #[arg(long, env = "CODEX_REMOTE_SECURE_COOKIES", default_value_t = false)]
+    #[arg(long, env = "HUTONCODEX_SECURE_COOKIES", default_value_t = false)]
     secure_cookies: bool,
-    #[arg(long, env = "CODEX_REMOTE_WEB_DIST", default_value = "dist")]
+    #[arg(long, env = "HUTONCODEX_WEB_DIST", default_value = "dist")]
     web_dist: String,
-    #[arg(long, env = "CODEX_REMOTE_PUBLIC_ORIGIN")]
+    #[arg(long, env = "HUTONCODEX_PUBLIC_ORIGIN")]
     public_origin: Option<String>,
 }
 
@@ -156,7 +156,7 @@ async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
         .with_env_filter(
             tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| "codex_remote_gateway=info,tower_http=info".into()),
+                .unwrap_or_else(|_| "hutoncodex_gateway=info,tower_http=info".into()),
         )
         .init();
     let args = Args::parse();
@@ -167,15 +167,15 @@ async fn main() -> anyhow::Result<()> {
         .public_origin
         .unwrap_or_else(|| format!("http://{}", args.bind));
     validate_public_origin(&public_origin, args.bind, args.secure_cookies)?;
-    let password = std::env::var("CODEX_REMOTE_ADMIN_PASSWORD")
-        .context("CODEX_REMOTE_ADMIN_PASSWORD is required")?;
+    let password = std::env::var("HUTONCODEX_ADMIN_PASSWORD")
+        .context("HUTONCODEX_ADMIN_PASSWORD is required")?;
     if password.len() < 12 {
-        bail!("CODEX_REMOTE_ADMIN_PASSWORD must contain at least 12 characters");
+        bail!("HUTONCODEX_ADMIN_PASSWORD must contain at least 12 characters");
     }
     let host_token =
-        std::env::var("CODEX_REMOTE_HOST_TOKEN").context("CODEX_REMOTE_HOST_TOKEN is required")?;
+        std::env::var("HUTONCODEX_HOST_TOKEN").context("HUTONCODEX_HOST_TOKEN is required")?;
     if host_token.len() < 32 {
-        bail!("CODEX_REMOTE_HOST_TOKEN must contain at least 32 characters");
+        bail!("HUTONCODEX_HOST_TOKEN must contain at least 32 characters");
     }
     let salt = SaltString::generate(&mut OsRng);
     let password_hash = Argon2::default()
@@ -696,9 +696,9 @@ fn validate_public_origin(
     bind: SocketAddr,
     secure_cookies: bool,
 ) -> anyhow::Result<()> {
-    let parsed = url::Url::parse(origin).context("CODEX_REMOTE_PUBLIC_ORIGIN is invalid")?;
+    let parsed = url::Url::parse(origin).context("HUTONCODEX_PUBLIC_ORIGIN is invalid")?;
     if parsed.path() != "/" || parsed.query().is_some() || parsed.fragment().is_some() {
-        bail!("CODEX_REMOTE_PUBLIC_ORIGIN must contain only scheme and authority");
+        bail!("HUTONCODEX_PUBLIC_ORIGIN must contain only scheme and authority");
     }
     if secure_cookies && parsed.scheme() != "https" {
         bail!("secure cookies require an https public origin");
@@ -789,7 +789,7 @@ mod tests {
         let mut headers = HeaderMap::new();
         headers.insert(
             header::SEC_WEBSOCKET_PROTOCOL,
-            HeaderValue::from_static("codex-remote-v1, one-time-ticket"),
+            HeaderValue::from_static("hutoncodex-v1, one-time-ticket"),
         );
         assert_eq!(websocket_ticket(&headers), Some("one-time-ticket"));
     }
